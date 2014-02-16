@@ -8,20 +8,17 @@
  * }
  */
 public class Solution {
-    public ArrayList<Integer> preorderTraversal(TreeNode root) {
-        ArrayList<Integer> nodeList = new ArrayList<Integer>();
-        while (root != null) {
-            nodeList.add(root.val);
-            nodeList = addTwoArrayList(nodeList, preorderTraversal(root.left));
-            nodeList = addTwoArrayList(nodeList, preorderTraversal(root.right));
-            return nodeList;
-        }
-        return nodeList;
+    public boolean isValidBST(TreeNode root) {
+        return isValidBSTHelper(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        
     }
-    public ArrayList<Integer> addTwoArrayList(ArrayList<Integer> nodeListOne, ArrayList<Integer> nodeListTwo) {
-        for (int i = 0; i < nodeListTwo.size(); i ++) {
-            nodeListOne.add(nodeListTwo.get(i));
+    public boolean isValidBSTHelper(TreeNode root, int low, int high) {
+        if (root == null) {
+            return true;
         }
-        return nodeListOne;
+        if (root.val > low && root.val < high) {
+            return isValidBSTHelper(root.left, low, root.val) && isValidBSTHelper(root.right, root.val, high);
+        }
+        return false;
     }
 }
