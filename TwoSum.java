@@ -1,18 +1,13 @@
-//Assume that each input would have exactly one solution.
-//Return {0, 0} if no match found.
 public class Solution {
-    public int[] twoSum(int[] numbers, int target) {
-        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-        int[] resultArray = {0,0};
-        for (int i = 0; i < numbers.length; i++) {
-            if (map.containsKey(target-numbers[i])) {
-                int index = map.get(target-numbers[i]);
-                resultArray[0] = index + 1;
-                resultArray[1] = i + 1;
-            } else {
-                map.put(numbers[i],i);
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target-nums[i];
+            if (map.containsKey(complement)) {
+                return new int[] { map.get(complement), i };
             }
+            map.put(nums[i], i);
         }
-        return resultArray;
+        throw new IllegalArgumentException("No two sum solution");
     }
 }
